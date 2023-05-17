@@ -1,7 +1,7 @@
 import { concatString } from "./utils/concat";
 
 const animation = {
-  easeOutCubic: "0.1s cubic-bezier(0.33, 1, 0.68, 1)",
+  easeOutCubic: "80ms cubic-bezier(0.65, 0, 0.35, 1)",
 };
 
 const breakpoints = ["544px", "768px", "1012px", "1280px"];
@@ -47,7 +47,7 @@ const sizes = {
 };
 
 const colors = {
-  primary: ["#d6bbfb", "#9E77ED", "#53389E"],
+  primary: ["#e0b3f5", "#c46fed", "#b242e7"],
   grey: ["#DDD5DD", "#667085", "#101828"],
   text: ["#fff", "#000"],
 };

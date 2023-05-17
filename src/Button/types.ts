@@ -1,38 +1,124 @@
 import styled from "styled-components";
 import { theme } from "../theme";
 import { PolymorphicComponentPropWithRef } from "../utils/polymorphic";
+import { hexToRgb } from "../utils/hexToRGB";
+import { concatString } from "../utils/concat";
 
-export const StyledButton = styled.button`
-  border-radius: ${theme.radii.sl};
-  /* padding: ${theme.space[2]};
-  font-size: ${theme.fontSizes[2]};
-  background-color: ${theme.colors.primary[2]}; */
+export const StyledButton = styled("button")`
+  box-sizing: border-box;
+
+  border-radius: 5px;
+  border: 2px solid;
+  // change to inherit
+  font-family: sans-serif;
+  font-size: inherit;
+  font-weight: normal;
   cursor: pointer;
-  /* border: none; */
-  /* color: ${theme.colors.text[0]}; */
-  transition: ${theme.animation.easeOutCubic};
+  appearance: none;
+  user-select: none;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 12px;
+  min-width: max-content;
+  transition: 80ms cubic-bezier(0.65, 0, 0.35, 1);
 
-  margin: 10px;
+  &[href] {
+    display: inline-flex;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 
   &:hover {
-    background-color: ${theme.colors.primary[1]};
+    transition-duration: 80ms;
   }
 
   &:active {
-    background-color: ${theme.colors.primary[0]};
+    transition: none;
   }
 
-  &:focus {
-    outline: 3px solid ${theme.colors.primary[1]};
+  &:disabled {
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  svg {
+    height: 16px;
+    width: 16px;
+    perspective: 0ch;
+  }
+
+  & [data-component="leadingVisual"] {
+    display: inherit;
+    align-items: center;
+  }
+
+  & [data-component="trailingVision"] {
+    display: inherit;
+    align-items: center;
+    margin-left: 10px;
+  }
+
+  & [data-component="buttonContent"] {
+    display: inherit;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* sizes */
+
+  &[data-size="small"] {
+    padding: 0 8px;
+    height: 28px;
+    gap: 4px;
+    font-size: 14px;
+
+    & [data-component="leadingVisual"] svg,
+    & [data-component="trailingVision"] svg {
+      height: 11px;
+    }
+  }
+
+  &[data-size="large"] {
+    padding: 0 16px;
+    height: 40px;
+    gap: 8px;
+  }
+
+  /* variants */
+
+  &[data-variant="primary"] {
+    background-color: ${theme.colors.primary[2]};
+    border-color: ${theme.colors.primary[2]} !important;
+    color: #fff;
+
+    &:hover {
+      background-color: ${theme.colors.primary[1]};
+      border-color: ${theme.colors.primary[1]} !important;
+    }
+
+    &:active {
+      background-color: ${theme.colors.primary[0]};
+      border-color: ${theme.colors.primary[0]} !important;
+    }
+
+    &[data-transparency="true"] {
+      background-color: rgba(${hexToRgb(theme.colors.primary[2])}, 0.3);
+      border: none !important;
+      color: #5a01a0;
+
+      &:hover {
+        background-color: rgba(${hexToRgb(theme.colors.primary[2])}, 0.4);
+      }
+    }
   }
 `;
 
-export type VariantType =
-  | "default"
-  | "primary"
-  | "invisible"
-  | "danger"
-  | "outline";
+export type VariantType = "primary" | "invisible" | "danger" | "outline";
 
 export type Size = "small" | "medium" | "large";
 
@@ -58,5 +144,4 @@ export type LinkButtonProps = {
   href?: string;
   rel?: string;
   type?: string;
-  referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>["referrerPolicy"];
 };
